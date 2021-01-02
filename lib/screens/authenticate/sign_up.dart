@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:classroom/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:classroom/services/auth.dart';

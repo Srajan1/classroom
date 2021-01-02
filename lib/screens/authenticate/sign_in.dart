@@ -227,6 +227,7 @@ class _SignInState extends State<SignIn> {
                                       setState(() {
                                         _loading = false;
                                         err = value.error.toString();
+                                        print(err);
                                       });
                                     },
                                     child: Center(

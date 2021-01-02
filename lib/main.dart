@@ -1,8 +1,11 @@
+import 'package:classroom/screens/authenticate/logout.dart';
 import 'package:classroom/screens/authenticate/sign_in.dart';
 import 'package:classroom/screens/authenticate/sign_up.dart';
-import 'package:classroom/screens/home/home.dart';
+import 'package:classroom/screens/views/create_class.dart';
+import 'package:classroom/screens/views/home.dart';
 import 'package:classroom/services/auth.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 
 import './wrapper.dart';
 import 'package:flutter/material.dart';
@@ -19,8 +22,10 @@ void main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+  SystemChrome.setEnabledSystemUIOverlays([]);
+
   await Firebase.initializeApp();
-  runApp(MyApp());
+  runApp(Phoenix(child: MyApp()));
 }
 
 Map<int, Color> color = {
@@ -36,8 +41,8 @@ Map<int, Color> color = {
   900: Color.fromRGBO(136, 14, 79, 1),
 };
 
-MaterialColor colorCustomAccent = MaterialColor(0xFF2a2d34, color);
-MaterialColor colorCustomSwatch = MaterialColor(0xFFff595e, color);
+MaterialColor colorCustomAccent = MaterialColor(0xFF4C2A85, color);
+MaterialColor colorCustomSwatch = MaterialColor(0xFF461353, color);
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -69,6 +74,8 @@ class MyApp extends StatelessWidget {
             SignUp.routeName: (_) => SignUp(),
             Home.routeName: (_) => Home(),
             SignIn.routeName: (_) => SignIn(),
+            CreateClass.routeName: (_) => CreateClass(),
+            LogOut.routeName: (_) => LogOut()
           },
         ),
       ),

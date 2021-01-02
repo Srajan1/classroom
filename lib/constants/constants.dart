@@ -12,6 +12,12 @@ var kPageTitleStyle = GoogleFonts.questrial(
   color: Colors.white,
   wordSpacing: 2.5,
 );
+var kPageTitleStyleBlack = GoogleFonts.questrial(
+  fontSize: 23.0,
+  fontWeight: FontWeight.w900,
+  color: Colors.black,
+  wordSpacing: 2.5,
+);
 var kTitleStyle = GoogleFonts.questrial(
   fontSize: 16.0,
   color: Colors.white,
@@ -23,7 +29,7 @@ var kSubtitleStyle = GoogleFonts.questrial(
 );
 
 final kHintTextStyle = TextStyle(
-  color: Colors.white54,
+  color: Colors.grey[700],
   fontFamily: 'OpenSans',
 );
 

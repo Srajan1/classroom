@@ -1,6 +1,6 @@
 import 'package:classroom/screens/authenticate/authenticate.dart';
 
-import './screens/home/home.dart';
+import './screens/views/home.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
