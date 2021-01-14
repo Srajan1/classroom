@@ -3,10 +3,11 @@ import 'package:classroom/screens/authenticate/sign_in.dart';
 import 'package:classroom/screens/authenticate/sign_up.dart';
 import 'package:classroom/screens/views/create_class.dart';
 import 'package:classroom/screens/views/home.dart';
+import 'package:classroom/screens/views/join_class.dart';
 import 'package:classroom/services/auth.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
-
+import './screens/views/created_classes.dart';
 import './wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -75,7 +76,9 @@ class MyApp extends StatelessWidget {
             Home.routeName: (_) => Home(),
             SignIn.routeName: (_) => SignIn(),
             CreateClass.routeName: (_) => CreateClass(),
-            LogOut.routeName: (_) => LogOut()
+            LogOut.routeName: (_) => LogOut(),
+            CreatedClasses.routeName: (_) => CreatedClasses(),
+            JoinClass.routeName: (_) => JoinClass()
           },
         ),
       ),

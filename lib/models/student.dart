@@ -1,4 +1,5 @@
 class Student {
-  String uid;
+  String rollNo;
   String name;
+  Student(this.name, this.rollNo);
 }

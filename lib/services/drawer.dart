@@ -1,6 +1,7 @@
 import 'package:classroom/constants/constants.dart';
 import 'package:classroom/screens/views/create_class.dart';
 import 'package:classroom/screens/views/home.dart';
+import 'package:classroom/screens/views/join_class.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
@@ -93,7 +94,7 @@ class CustomDrawer extends StatelessWidget {
                       direction: Axis.horizontal,
                       children: [
                         Icon(Icons.add_business),
-                        Text('Create new class')
+                        Text('Create/view class')
                       ],
                     ),
                   ],
@@ -101,7 +102,9 @@ class CustomDrawer extends StatelessWidget {
               ),
               RaisedButton(
                 splashColor: Theme.of(context).primaryColor,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pushNamed(JoinClass.routeName);
+                },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
