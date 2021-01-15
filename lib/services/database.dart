@@ -1,8 +1,10 @@
 import 'package:classroom/models/announcement.dart';
 import 'package:classroom/models/assignment.dart';
+import 'package:classroom/models/error.dart';
 import 'package:classroom/models/lectures.dart';
 import 'package:classroom/models/student.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class MyClasses {
   String subjectName;
@@ -39,17 +41,30 @@ class MyClassDatabase {
 }
 
 class JoinClassDataBase {
-  final code, rollNum, collName, studentName;
-  JoinClassDataBase(this.code, this.rollNum, this.collName, this.studentName);
+  String code, rollNum, studentName, email;
+  var collName;
+  ErrorMsg error;
+  JoinClassDataBase(this.code, this.rollNum, this.collName, this.studentName,
+      this.email, this.error);
   Future JoinClass() async {
-    final teacher = FirebaseFirestore.instance.collection(collName);
-    Student student = Student(studentName, rollNum);
+    if (code.contains(email)) {
+      error.error = 'You know you are the teacher of this class. Right?. 🤣🤣';
+    } else {
+      final teacher = FirebaseFirestore.instance.collection(collName);
 
-    DocumentSnapshot classRoom = await teacher.doc(code).get();
-    print(classRoom.data());
-    List<dynamic> studentList = classRoom.data()['studentList'];
-    studentList.add({'studentName': studentName, 'rollNum': rollNum});
-    teacher.doc(code).update({"studentList": studentList});
-    print(studentList);
+      DocumentSnapshot classRoom = await teacher.doc(code).get();
+      print(classRoom.data());
+      List<dynamic> studentList = classRoom.data()['studentList'];
+      studentList.add({'studentName': studentName, 'rollNum': rollNum});
+      teacher.doc(code).update({"studentList": studentList});
+      print(studentList);
+      error.error = 'You\'ve successfully joined the class. 🦚🦚';
+      return FirebaseFirestore.instance
+          .collection('student ' + email)
+          .doc(code)
+          .set({
+        'code': code,
+      });
+    }
   }
 }

@@ -1,8 +1,9 @@
 import 'package:classroom/constants/constants.dart';
 import 'package:classroom/models/error.dart';
-import 'package:classroom/services/my_classes.dart';
+import 'package:classroom/services/database.dart';
 import 'package:classroom/screens/views/created_classes.dart';
 import 'package:classroom/services/drawer.dart';
+import 'package:classroom/services/loading.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +39,7 @@ class _CreateClassState extends State<CreateClass> {
         FirebaseFirestore.instance.collection(coll);
     final db = MyClassDatabase(user.uid, myClassCollection);
     return _loading
-        ? Scaffold(body: Center(child: Text('Loading...')))
+        ? Loader()
         : Scaffold(
             drawer: CustomDrawer(),
             appBar: AppBar(

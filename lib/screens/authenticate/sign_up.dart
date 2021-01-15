@@ -1,4 +1,5 @@
 import 'package:classroom/constants/constants.dart';
+import 'package:classroom/services/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:classroom/services/auth.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -23,9 +24,7 @@ class _SignUpState extends State<SignUp> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size.height;
     return loading
-        ? Scaffold(
-            body: Center(child: Text('Loading...')),
-          )
+        ? Loader()
         : Scaffold(
             backgroundColor: Theme.of(context).primaryColor,
             body: SingleChildScrollView(

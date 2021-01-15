@@ -57,12 +57,14 @@ class CreatedClasses extends StatelessWidget {
                   child: Column(
                     // crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 20.0, horizontal: 8),
-                        child: Text(
-                          'Subject Name: ' + document.data()['subName'],
-                          style: kPageTitleStyleBlack,
+                      Center(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 20.0, horizontal: 5),
+                          child: Text(
+                            'Subject Name: ' + document.data()['subName'],
+                            style: kPageTitleStyleBlack,
+                          ),
                         ),
                       ),
                       Padding(

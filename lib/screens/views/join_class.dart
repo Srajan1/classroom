@@ -1,17 +1,30 @@
 import 'package:classroom/constants/constants.dart';
-import 'package:classroom/services/my_classes.dart';
+import 'package:classroom/models/error.dart';
+import 'package:classroom/services/database.dart';
+import 'package:classroom/services/loading.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class JoinClass extends StatelessWidget {
+class JoinClass extends StatefulWidget {
   static const routeName = '/join-class';
+
+  @override
+  _JoinClassState createState() => _JoinClassState();
+}
+
+class _JoinClassState extends State<JoinClass> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   final rollNum = TextEditingController();
+
   final code = TextEditingController();
+
   final name = TextEditingController();
 
+  String message = ' ';
+  bool _loading = false;
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
@@ -25,140 +38,157 @@ class JoinClass extends StatelessWidget {
           : 'https://cdn3.iconfinder.com/data/icons/user-interface-web-1/550/web-circle-circular-round_54-512.png';
     }
     name.text = user.displayName;
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Join a class',
-          style: TextStyle(color: Theme.of(context).accentColor),
-        ),
-        iconTheme: IconThemeData(color: Theme.of(context).accentColor),
-        backgroundColor: Colors.white,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 28.0, vertical: 10),
-              child: Text(
-                'You are currently signed in as..',
-                style: GoogleFonts.roboto(),
+    return _loading
+        ? Loader()
+        : Scaffold(
+            appBar: AppBar(
+              title: Text(
+                'Join a class',
+                style: TextStyle(color: Theme.of(context).accentColor),
               ),
+              iconTheme: IconThemeData(color: Theme.of(context).accentColor),
+              backgroundColor: Colors.white,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 28.0, vertical: 10),
-                  child: Container(
-                      width: 50.0,
-                      height: 50.0,
-                      decoration: new BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: new DecorationImage(
-                              fit: BoxFit.fill,
-                              image: new NetworkImage(imgURL)))),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 5),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+            body: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 28.0, vertical: 10),
+                    child: Text(
+                      'You are currently signed in as..',
+                      style: GoogleFonts.roboto(),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(user.displayName,
-                          style: GoogleFonts.questrial(
-                              fontWeight: FontWeight.bold)),
-                      Text(user.email,
-                          style: GoogleFonts.questrial(
-                              fontWeight: FontWeight.w100)),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 28.0, vertical: 10),
+                        child: Container(
+                            width: 50.0,
+                            height: 50.0,
+                            decoration: new BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: new DecorationImage(
+                                    fit: BoxFit.fill,
+                                    image: new NetworkImage(imgURL)))),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(user.displayName,
+                                style: GoogleFonts.questrial(
+                                    fontWeight: FontWeight.bold)),
+                            Text(user.email,
+                                style: GoogleFonts.questrial(
+                                    fontWeight: FontWeight.w100)),
+                          ],
+                        ),
+                      )
                     ],
                   ),
-                )
-              ],
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 28),
-              child: Divider(),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    formField(rollNum, 'Roll number', context),
-                    formField(code, 'Enter code', context),
-                    Container(
-                      padding: EdgeInsets.all(10),
-                      width: MediaQuery.of(context).size.width * 0.8,
-                      child: Material(
-                        borderRadius: BorderRadius.circular(20.0),
-                        shadowColor: Theme.of(context).accentColor,
-                        color: Theme.of(context).accentColor,
-                        child: Builder(builder: (context) {
-                          return FlatButton(
-                            onPressed: () async {
-                              if (_formKey.currentState.validate()) {
-                                String str = code.text;
-                                int index;
-                                for (int i = 0; i < str.length; ++i) {
-                                  if (str[i] == '.' &&
-                                      str[i + 1] == 'c' &&
-                                      str[i + 2] == 'o' &&
-                                      str[i + 3] == 'm') index = i + 3;
-                                }
-                                String teacherId = str.substring(0, index + 1);
-                                var db = JoinClassDataBase(code.text,
-                                    rollNum.text, teacherId, name.text);
-                                db.JoinClass();
-                              }
-                            },
-                            child: Text(
-                              'Join the class',
-                              style: TextStyle(color: Colors.white),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 28),
+                    child: Divider(),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          formField(rollNum, 'Roll number', context),
+                          formField(code, 'Enter code', context),
+                          Text(message),
+                          Container(
+                            padding: EdgeInsets.all(10),
+                            width: MediaQuery.of(context).size.width * 0.8,
+                            child: Material(
+                              borderRadius: BorderRadius.circular(20.0),
+                              shadowColor: Theme.of(context).accentColor,
+                              color: Theme.of(context).accentColor,
+                              child: Builder(builder: (context) {
+                                return FlatButton(
+                                  onPressed: () async {
+                                    if (_formKey.currentState.validate()) {
+                                      setState(() {
+                                        _loading = true;
+                                      });
+                                      String str = code.text;
+                                      int index;
+                                      for (int i = 0; i < str.length; ++i) {
+                                        if (str[i] == '.' &&
+                                            str[i + 1] == 'c' &&
+                                            str[i + 2] == 'o' &&
+                                            str[i + 3] == 'm') index = i + 3;
+                                      }
+                                      var error = ErrorMsg(' ');
+                                      String teacherId =
+                                          str.substring(0, index + 1);
+                                      var db = JoinClassDataBase(
+                                          code.text,
+                                          rollNum.text,
+                                          teacherId,
+                                          name.text,
+                                          user.email,
+                                          error);
+                                      await db.JoinClass();
+                                      setState(() {
+                                        _loading = false;
+                                        message = error.error;
+                                      });
+                                    }
+                                  },
+                                  child: Text(
+                                    'Join the class',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                );
+                              }),
                             ),
-                          );
-                        }),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 28),
+                    child: Divider(),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 28.0, vertical: 10),
+                    child: Text(
+                      'To sign in with a class code',
+                      style: GoogleFonts.roboto(
+                          fontWeight: FontWeight.bold, fontSize: 15),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 28.0, vertical: 10),
+                    child: Text(
+                      '💛Ask your teacher for the class code and input above.',
+                      style: GoogleFonts.roboto(fontSize: 15),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 28.0, vertical: 10),
+                    child: Text(
+                      '💛Make sure you have entered correct roll number, and entered real name during registration.',
+                      style: GoogleFonts.roboto(fontSize: 15),
+                    ),
+                  ),
+                ],
               ),
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 28),
-              child: Divider(),
-            ),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 28.0, vertical: 10),
-              child: Text(
-                'To sign in with a class code',
-                style: GoogleFonts.roboto(
-                    fontWeight: FontWeight.bold, fontSize: 15),
-              ),
-            ),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 28.0, vertical: 10),
-              child: Text(
-                '💛Ask your teacher for the class code and input above.',
-                style: GoogleFonts.roboto(fontSize: 15),
-              ),
-            ),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 28.0, vertical: 10),
-              child: Text(
-                '💛Make sure you have entered correct roll number, and entered real name during registration.',
-                style: GoogleFonts.roboto(fontSize: 15),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+          );
   }
 }
 
