@@ -196,6 +196,10 @@ class CopyCode extends StatelessWidget {
                       ClipboardData data = ClipboardData(text: (code));
                       await Clipboard.setData(data);
                       print(code);
+                      Scaffold.of(context).showSnackBar(SnackBar(
+                          backgroundColor: Color.fromRGBO(219, 22, 47, 1),
+                          content: Text("Code copied😁",
+                              style: TextStyle(color: Colors.white))));
                     }
                   : null,
               child: Text('Copy'),
