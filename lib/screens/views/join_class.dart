@@ -173,7 +173,7 @@ class _JoinClassState extends State<JoinClass> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 28.0, vertical: 10),
                     child: Text(
-                      '💛Ask your teacher for the class code and input above.',
+                      '🌟🌟Ask your teacher for the class code and input above.',
                       style: GoogleFonts.roboto(fontSize: 15),
                     ),
                   ),
@@ -181,7 +181,7 @@ class _JoinClassState extends State<JoinClass> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 28.0, vertical: 10),
                     child: Text(
-                      '💛Make sure you have entered correct roll number, and entered real name during registration.',
+                      '🌟🌟Make sure you have entered correct roll number, and entered real name during registration. Because you won\'t be able to join the same class using this account.',
                       style: GoogleFonts.roboto(fontSize: 15),
                     ),
                   ),

@@ -8,6 +8,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../models/loader.dart';
 import 'package:provider/provider.dart';
 import '../../constants/constants.dart';
@@ -67,8 +68,7 @@ class _CreateClassState extends State<CreateClass> {
                             padding: const EdgeInsets.only(top: 20.0),
                             child: Text(
                               msg,
-                              style: TextStyle(
-                                  color: Colors.red[400], fontSize: 20),
+                              style: GoogleFonts.roboto(fontSize: 15),
                             ),
                           ),
                           Container(
@@ -101,7 +101,7 @@ class _CreateClassState extends State<CreateClass> {
                                         code = user.email +
                                             subjectName.text +
                                             batch.text;
-                                        msg = err.error;
+                                        msg = err.error + '🌟🌟';
                                         Future.delayed(
                                             const Duration(milliseconds: 3000),
                                             () {
