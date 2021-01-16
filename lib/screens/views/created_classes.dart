@@ -1,4 +1,5 @@
 import 'package:classroom/constants/constants.dart';
+import 'package:classroom/screens/views/subject_class.dart';
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -85,7 +86,11 @@ class CreatedClasses extends StatelessWidget {
                               color: colorList[colorIndex % colorList.length],
                               child: Builder(builder: (context) {
                                 return FlatButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.of(context).pushNamed(
+                                        SubjectClass.routeName,
+                                        arguments: document.data());
+                                  },
                                   child: Center(
                                     child: Text(
                                       'View class',

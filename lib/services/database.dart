@@ -1,21 +1,6 @@
-import 'package:classroom/models/announcement.dart';
-import 'package:classroom/models/assignment.dart';
 import 'package:classroom/models/error.dart';
-import 'package:classroom/models/lectures.dart';
-import 'package:classroom/models/student.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
-
-class MyClasses {
-  String subjectName;
-  String code;
-  String professorName;
-  String email;
-  List<Student> students;
-  List<Announcement> announcements;
-  List<Assignment> assignment;
-  List<Lectures> lectures;
-}
 
 class MyClassDatabase {
   final CollectionReference teacher;
@@ -32,6 +17,11 @@ class MyClassDatabase {
       'code': code,
       'studentList': studentList
     }).then((value) {
+      List<dynamic> announcement;
+      final classCollection = FirebaseFirestore.instance.collection(code);
+      classCollection.doc('Announcements').set({});
+      classCollection.doc('assignments').set({});
+      classCollection.doc('Upcoming classes').set({});
       print("User Added");
       err.error = 'Class created';
     }).catchError((error) {
