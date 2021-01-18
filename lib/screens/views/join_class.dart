@@ -2,6 +2,7 @@ import 'package:classroom/constants/constants.dart';
 import 'package:classroom/models/error.dart';
 import 'package:classroom/services/database.dart';
 import 'package:classroom/services/loading.dart';
+import 'package:classroom/widgets/formFields.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -190,24 +191,4 @@ class _JoinClassState extends State<JoinClass> {
             ),
           );
   }
-}
-
-formField(controller, title, context) {
-  return Padding(
-    padding: const EdgeInsets.all(8.0),
-    child: TextFormField(
-      validator: ((value) => value.isEmpty ? 'Enter a value' : null),
-      controller: controller,
-      decoration: InputDecoration(
-        hintText: title,
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          borderSide: BorderSide(color: Colors.grey, width: 1.0),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.grey, width: 1.0),
-        ),
-      ),
-    ),
-  );
 }

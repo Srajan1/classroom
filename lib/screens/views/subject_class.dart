@@ -1,5 +1,6 @@
 import 'package:classroom/screens/views/class_announcements.dart';
 import 'package:classroom/screens/views/students.dart';
+import 'package:classroom/screens/views/upcoming_classes.dart';
 import 'package:flutter/material.dart';
 
 class SubjectClass extends StatefulWidget {
@@ -19,9 +20,7 @@ class _SubjectClassState extends State<SubjectClass> {
       Announcements(classData),
       Center(child: Text('Classwork')),
       Students(classData),
-      Center(
-        child: Text('upcoming classes'),
-      )
+      UpcomingClasses(classData),
     ];
     return Scaffold(
       appBar: AppBar(
@@ -58,7 +57,7 @@ class _SubjectClassState extends State<SubjectClass> {
               icon: Icon(
                 Icons.meeting_room,
               ),
-              label: 'upcoming classes'),
+              label: 'upcoming lectures'),
         ],
         onTap: (index) {
           setState(() {

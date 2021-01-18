@@ -1,6 +1,7 @@
 import 'package:classroom/models/error.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
 
 class MyClassDatabase {
   final CollectionReference teacher;
@@ -60,5 +61,32 @@ class JoinClassDataBase {
         });
       }
     }
+  }
+}
+
+class ScheduleClass {
+  var url, topics, code;
+  var date;
+  var time;
+  ErrorMsg error = new ErrorMsg(' ');
+  ScheduleClass(
+      {this.date, this.time, this.topics, this.url, this.error, this.code});
+  Future scheduleClass() async {
+    // print('start');
+    var classCollection = FirebaseFirestore.instance.collection(code);
+    // var data = await classCollection.doc('Upcoming classes').get();
+    // print(data.data());
+    await classCollection.doc('Upcoming classes').set({
+      'url': url,
+      'topics': topics,
+      'time': time.toString(),
+      'date': date.toString()
+    }).then((_) {
+      error.error = 'class created';
+      // print('end');
+    }).catchError((err) {
+      error.error = err.toString();
+      // print(err);
+    });
   }
 }
