@@ -3,6 +3,7 @@ import 'package:classroom/models/error.dart';
 import 'package:classroom/services/database.dart';
 import 'package:classroom/services/loading.dart';
 import 'package:classroom/widgets/formFields.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,6 +22,29 @@ class _JoinClassState extends State<JoinClass> {
   final rollNum = TextEditingController();
 
   final code = TextEditingController();
+  bool exists = true;
+
+  Future<void> checkExistence() async {
+    var allClasses = FirebaseFirestore.instance.collection('allClasses');
+    setState(() {
+      _loading = true;
+    });
+    DocumentSnapshot data = await allClasses.doc(code.text).get();
+    setState(() {
+      _loading = false;
+    });
+    if (data.data() == null) {
+      setState(() {
+        exists = false;
+        message = 'does not exist';
+      });
+    } else {
+      setState(() {
+        exists = true;
+      });
+      print('exists');
+    }
+  }
 
   final name = TextEditingController();
   String message = ' ';
@@ -116,32 +140,36 @@ class _JoinClassState extends State<JoinClass> {
                                 return FlatButton(
                                   onPressed: () async {
                                     if (_formKey.currentState.validate()) {
-                                      setState(() {
-                                        _loading = true;
-                                      });
-                                      String str = code.text;
-                                      int index;
-                                      for (int i = 0; i < str.length; ++i) {
-                                        if (str[i] == '.' &&
-                                            str[i + 1] == 'c' &&
-                                            str[i + 2] == 'o' &&
-                                            str[i + 3] == 'm') index = i + 3;
-                                      }
-                                      var error = ErrorMsg(' ');
-                                      String teacherId =
-                                          str.substring(0, index + 1);
-                                      var db = JoinClassDataBase(
-                                          code.text,
-                                          rollNum.text,
-                                          teacherId,
-                                          name.text,
-                                          user.email,
-                                          error);
-                                      await db.JoinClass();
-                                      setState(() {
-                                        _loading = false;
-                                        message = error.error;
-                                      });
+                                      await checkExistence();
+                                      if (exists) {
+                                        print(exists);
+                                        setState(() {
+                                          _loading = true;
+                                        });
+                                        String str = code.text;
+                                        int index;
+                                        for (int i = 0; i < str.length; ++i) {
+                                          if (str[i] == '.' &&
+                                              str[i + 1] == 'c' &&
+                                              str[i + 2] == 'o' &&
+                                              str[i + 3] == 'm') index = i + 3;
+                                        }
+                                        var error = ErrorMsg(' ');
+                                        String teacherId =
+                                            str.substring(0, index + 1);
+                                        var db = JoinClassDataBase(
+                                            code.text,
+                                            rollNum.text,
+                                            teacherId,
+                                            name.text,
+                                            user.email,
+                                            error);
+                                        await db.JoinClass();
+                                        setState(() {
+                                          _loading = false;
+                                          message = error.error;
+                                        });
+                                      } else {}
                                     }
                                   },
                                   child: Text(

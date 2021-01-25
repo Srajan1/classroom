@@ -9,6 +9,10 @@ class MyClassDatabase {
   MyClassDatabase(this.uid, this.teacher);
   Future createClass(
       subjectName, batch, professorName, email, err, code) async {
+    FirebaseFirestore.instance
+        .collection('allClasses')
+        .doc(code)
+        .set({'exists': true});
     List<dynamic> studentList = new List();
     return teacher.doc(code).set({
       'profName': professorName,
@@ -41,24 +45,30 @@ class JoinClassDataBase {
     if (code.contains(email)) {
       error.error = 'You know you are the teacher of this class. Right?. 🤣🤣';
     } else {
-      final teacher = FirebaseFirestore.instance.collection(collName);
-      final studentCollection =
-          FirebaseFirestore.instance.collection('student ' + email);
-      DocumentSnapshot classRoom = await teacher.doc(code).get();
-      DocumentSnapshot myClasses = await studentCollection.doc(code).get();
-      if (myClasses.data() != null)
-        error.error = 'Why are you trying to enroll twice? 😑🙄';
-      else {
-        print(classRoom.data());
-        List<dynamic> studentList = classRoom.data()['studentList'];
-        studentList.add(
-            {'studentName': studentName, 'rollNum': rollNum, 'email': email});
-        teacher.doc(code).update({"studentList": studentList});
-        print(studentList);
-        error.error = 'You\'ve successfully joined the class. 🌟🌟';
-        return studentCollection.doc(code).set({
-          'code': code,
-        });
+      var allClasses = FirebaseFirestore.instance.collection('allClasses');
+      if (allClasses.doc(code).get() != null) {
+        final teacher = FirebaseFirestore.instance.collection(collName);
+        final studentCollection =
+            FirebaseFirestore.instance.collection('student ' + email);
+        DocumentSnapshot classRoom = await teacher.doc(code).get();
+        DocumentSnapshot myClasses = await studentCollection.doc(code).get();
+        if (myClasses.data() != null)
+          error.error = 'Why are you trying to enroll twice? 😑🙄';
+        else {
+          print(classRoom.data());
+          List<dynamic> studentList = classRoom.data()['studentList'];
+          studentList.add(
+              {'studentName': studentName, 'rollNum': rollNum, 'email': email});
+          teacher.doc(code).update({"studentList": studentList});
+          print(studentList);
+          error.error = 'You\'ve successfully joined the class. 🌟🌟';
+          return studentCollection.doc(code).set({
+            'code': code,
+          });
+        }
+      } else {
+        print('does not exist');
+        error.error = 'Class does not exist';
       }
     }
   }
