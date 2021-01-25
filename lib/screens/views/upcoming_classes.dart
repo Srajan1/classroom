@@ -1,11 +1,14 @@
 import 'package:classroom/constants/constants.dart';
 import 'package:classroom/models/error.dart';
+import 'package:classroom/screens/views/scheduled_classes.dart';
 import 'package:classroom/services/database.dart';
 import 'package:classroom/services/loading.dart';
 import 'package:classroom/widgets/formFields.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class UpcomingClasses extends StatefulWidget {
   Map<dynamic, dynamic> classData;
@@ -16,8 +19,8 @@ class UpcomingClasses extends StatefulWidget {
 }
 
 class _UpcomingClassesState extends State<UpcomingClasses> {
-  String msg =
-      'Schedule a class, all of your students will be informed about it.';
+  String msg = 'Schedule a class.';
+  String subCollName;
   bool _loading = false;
   DateTime selectedDate = DateTime.now();
   Future<Null> _selectDate(BuildContext context) async {
@@ -53,6 +56,16 @@ class _UpcomingClassesState extends State<UpcomingClasses> {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User>(context);
+    var imgURL;
+    if (user == null) {
+      imgURL =
+          'https://cdn3.iconfinder.com/data/icons/user-interface-web-1/550/web-circle-circular-round_54-512.png';
+    } else {
+      imgURL = user.photoURL != null
+          ? user.photoURL
+          : 'https://cdn3.iconfinder.com/data/icons/user-interface-web-1/550/web-circle-circular-round_54-512.png';
+    }
     return _loading
         ? Loader()
         : Scaffold(
@@ -62,13 +75,44 @@ class _UpcomingClassesState extends State<UpcomingClasses> {
                   AppBar().preferredSize.height,
               child: Column(
                 children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 28.0, vertical: 10),
+                        child: Container(
+                            width: 50.0,
+                            height: 50.0,
+                            decoration: new BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: new DecorationImage(
+                                    fit: BoxFit.fill,
+                                    image: new NetworkImage(imgURL)))),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(user.displayName,
+                                style: GoogleFonts.questrial(
+                                    fontWeight: FontWeight.bold)),
+                            Text(user.email,
+                                style: GoogleFonts.questrial(
+                                    fontWeight: FontWeight.w100)),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 28.0, vertical: 10),
                     child: Text(
                       msg,
                       style: GoogleFonts.questrial(
-                        fontSize: 23.0,
+                        fontSize: 15.0,
                         // fontWeight: FontWeight.w900,
                         color: Colors.black,
                         wordSpacing: 2.5,
@@ -108,7 +152,7 @@ class _UpcomingClassesState extends State<UpcomingClasses> {
                           ),
                         ),
                         Container(
-                          padding: EdgeInsets.all(10),
+                          padding: EdgeInsets.only(bottom: 10),
                           width: MediaQuery.of(context).size.width * 0.8,
                           child: Material(
                             borderRadius: BorderRadius.circular(20.0),
@@ -121,6 +165,7 @@ class _UpcomingClassesState extends State<UpcomingClasses> {
                                     _loading = true;
                                   });
                                   if (_formKey.currentState.validate()) {
+                                    subCollName = topics.text;
                                     ErrorMsg error = new ErrorMsg(' ');
                                     var db = ScheduleClass(
                                         code: widget.classData['code'],
@@ -146,10 +191,42 @@ class _UpcomingClassesState extends State<UpcomingClasses> {
                             }),
                           ),
                         ),
+                        Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(
+                                color: Theme.of(context).accentColor,
+                              )),
+                          // padding: EdgeInsets.all(10),
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          child: Material(
+                            borderRadius: BorderRadius.circular(
+                              20.0,
+                            ),
+                            shadowColor: Theme.of(context).accentColor,
+                            child: Builder(builder: (context) {
+                              return FlatButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ScheduledClasses(
+                                            widget.classData, subCollName)),
+                                  );
+                                },
+                                child: Text(
+                                  'View scheduled classes',
+                                  style: TextStyle(
+                                    color: Theme.of(context).accentColor,
+                                  ),
+                                ),
+                              );
+                            }),
+                          ),
+                        ),
                       ],
                     ),
                   ),
-                  //
                 ],
               ),
             ),

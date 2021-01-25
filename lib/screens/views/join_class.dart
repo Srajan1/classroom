@@ -23,7 +23,6 @@ class _JoinClassState extends State<JoinClass> {
   final code = TextEditingController();
 
   final name = TextEditingController();
-
   String message = ' ';
   bool _loading = false;
   @override

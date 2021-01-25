@@ -72,21 +72,39 @@ class ScheduleClass {
   ScheduleClass(
       {this.date, this.time, this.topics, this.url, this.error, this.code});
   Future scheduleClass() async {
-    // print('start');
+    if (topics == '') topics = 'Unnamed topic';
     var classCollection = FirebaseFirestore.instance.collection(code);
-    // var data = await classCollection.doc('Upcoming classes').get();
-    // print(data.data());
-    await classCollection.doc('Upcoming classes').set({
+    await classCollection
+        .doc('Upcoming classes')
+        .collection('Upcoming classes')
+        .doc()
+        .set({
       'url': url,
       'topics': topics,
       'time': time.toString(),
       'date': date.toString()
     }).then((_) {
       error.error = 'class created';
-      // print('end');
     }).catchError((err) {
       error.error = err.toString();
-      // print(err);
+    });
+  }
+}
+
+class ViewScheduledClasses {
+  var code;
+  ViewScheduledClasses(this.code);
+  Future ViewClasses() async {
+    var collName = FirebaseFirestore.instance.collection(code);
+    DocumentSnapshot upcomingClass = await collName
+        .doc('Upcoming classes')
+        .collection('topic')
+        .doc()
+        .get()
+        .then((snapshot) {
+      print(snapshot.data());
+    }).catchError((err) {
+      print(err);
     });
   }
 }
