@@ -1,5 +1,6 @@
 import 'package:classroom/constants/constants.dart';
 import 'package:classroom/screens/views/subject_class.dart';
+import 'package:classroom/services/loading.dart';
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -41,7 +42,7 @@ class CreatedClasses extends StatelessWidget {
             }
 
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Text("Loading");
+              return Loader();
             }
 
             return new ListView(

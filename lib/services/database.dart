@@ -101,20 +101,18 @@ class ScheduleClass {
   }
 }
 
-class ViewScheduledClasses {
+class MakeAnnouncement {
   var code;
-  ViewScheduledClasses(this.code);
-  Future ViewClasses() async {
+  String postedBy, post;
+  MakeAnnouncement(this.code, this.postedBy, this.post);
+  Future makeAnnouncement() async {
     var collName = FirebaseFirestore.instance.collection(code);
-    DocumentSnapshot upcomingClass = await collName
-        .doc('Upcoming classes')
-        .collection('topic')
-        .doc()
-        .get()
-        .then((snapshot) {
-      print(snapshot.data());
-    }).catchError((err) {
-      print(err);
+    await collName.doc('Announcements').collection('announcements').doc().set({
+      'postedBy': postedBy,
+      'post': post,
+      'time': DateTime.now().toString().substring(0, 10) +
+          ' ' +
+          TimeOfDay.now().toString().substring(10, 15)
     });
   }
 }

@@ -1,4 +1,5 @@
 import 'package:classroom/screens/views/class_announcements.dart';
+import 'package:classroom/screens/views/classwork.dart';
 import 'package:classroom/screens/views/students.dart';
 import 'package:classroom/screens/views/upcoming_classes.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ class _SubjectClassState extends State<SubjectClass> {
     Map<dynamic, dynamic> classData = ModalRoute.of(context).settings.arguments;
     final tabs = [
       Announcements(classData),
-      Center(child: Text('Classwork')),
+      Classwork(classData),
       Students(classData),
       UpcomingClasses(classData),
     ];

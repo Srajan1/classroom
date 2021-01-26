@@ -17,12 +17,6 @@ class ScheduledClasses extends StatefulWidget {
 
 class _ScheduledClassesState extends State<ScheduledClasses> {
   @override
-  Future getClass() async {
-    var db = await ViewScheduledClasses(widget.classData['code']);
-    db.ViewClasses();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

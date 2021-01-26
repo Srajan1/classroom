@@ -69,165 +69,168 @@ class _UpcomingClassesState extends State<UpcomingClasses> {
     return _loading
         ? Loader()
         : Scaffold(
-            body: Container(
-              height: MediaQuery.of(context).size.height -
-                  kBottomNavigationBarHeight -
-                  AppBar().preferredSize.height,
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 28.0, vertical: 10),
-                        child: Container(
-                            width: 50.0,
-                            height: 50.0,
-                            decoration: new BoxDecoration(
-                                shape: BoxShape.circle,
-                                image: new DecorationImage(
-                                    fit: BoxFit.fill,
-                                    image: new NetworkImage(imgURL)))),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 5),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(user.displayName,
-                                style: GoogleFonts.questrial(
-                                    fontWeight: FontWeight.bold)),
-                            Text(user.email,
-                                style: GoogleFonts.questrial(
-                                    fontWeight: FontWeight.w100)),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 28.0, vertical: 10),
-                    child: Text(
-                      msg,
-                      style: GoogleFonts.questrial(
-                        fontSize: 15.0,
-                        // fontWeight: FontWeight.w900,
-                        color: Colors.black,
-                        wordSpacing: 2.5,
-                      ),
-                    ),
-                  ),
-                  Form(
-                    key: _formKey,
-                    child: Column(
+            body: SingleChildScrollView(
+              child: Container(
+                height: MediaQuery.of(context).size.height -
+                    kBottomNavigationBarHeight -
+                    AppBar().preferredSize.height,
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 28),
-                          child: formField(url, 'Meeting url', context),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 28.0, vertical: 10),
+                          child: Container(
+                              width: 50.0,
+                              height: 50.0,
+                              decoration: new BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  image: new DecorationImage(
+                                      fit: BoxFit.fill,
+                                      image: new NetworkImage(imgURL)))),
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 28),
-                          child: formField(topics, 'Lecture topic', context),
-                        ),
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.8,
-                          child: FlatButton(
-                            onPressed: () => _selectDate(context),
-                            child: Text(
-                              'Selected date ' +
-                                  "${selectedDate.toLocal()}".split(' ')[0],
-                            ),
+                          padding: const EdgeInsets.symmetric(vertical: 5),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(user.displayName,
+                                  style: GoogleFonts.questrial(
+                                      fontWeight: FontWeight.bold)),
+                              Text(user.email,
+                                  style: GoogleFonts.questrial(
+                                      fontWeight: FontWeight.w100)),
+                            ],
                           ),
-                        ),
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.8,
-                          child: FlatButton(
-                            onPressed: () => selectTime(context),
-                            child: Text(_time == null
-                                ? 'Selected time'
-                                : 'Selected time' +
-                                    _time.format(context).toString()),
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(bottom: 10),
-                          width: MediaQuery.of(context).size.width * 0.8,
-                          child: Material(
-                            borderRadius: BorderRadius.circular(20.0),
-                            shadowColor: Theme.of(context).accentColor,
-                            color: Theme.of(context).accentColor,
-                            child: Builder(builder: (context) {
-                              return FlatButton(
-                                onPressed: () async {
-                                  setState(() {
-                                    _loading = true;
-                                  });
-                                  if (_formKey.currentState.validate()) {
-                                    subCollName = topics.text;
-                                    ErrorMsg error = new ErrorMsg(' ');
-                                    var db = ScheduleClass(
-                                        code: widget.classData['code'],
-                                        date: selectedDate.toLocal(),
-                                        error: error,
-                                        time: _time,
-                                        topics: topics.text,
-                                        url: url.text);
-                                    await db.scheduleClass();
-                                    setState(() {
-                                      url.text = '';
-                                      topics.text = '';
-                                      _loading = false;
-                                      msg = error.error;
-                                    });
-                                  }
-                                },
-                                child: Text(
-                                  'Schedule class',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              );
-                            }),
-                          ),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(
-                                color: Theme.of(context).accentColor,
-                              )),
-                          // padding: EdgeInsets.all(10),
-                          width: MediaQuery.of(context).size.width * 0.8,
-                          child: Material(
-                            borderRadius: BorderRadius.circular(
-                              20.0,
-                            ),
-                            shadowColor: Theme.of(context).accentColor,
-                            child: Builder(builder: (context) {
-                              return FlatButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => ScheduledClasses(
-                                            widget.classData, subCollName)),
-                                  );
-                                },
-                                child: Text(
-                                  'View scheduled classes',
-                                  style: TextStyle(
-                                    color: Theme.of(context).accentColor,
-                                  ),
-                                ),
-                              );
-                            }),
-                          ),
-                        ),
+                        )
                       ],
                     ),
-                  ),
-                ],
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 28.0, vertical: 10),
+                      child: Text(
+                        msg,
+                        style: GoogleFonts.questrial(
+                          fontSize: 15.0,
+                          // fontWeight: FontWeight.w900,
+                          color: Colors.black,
+                          wordSpacing: 2.5,
+                        ),
+                      ),
+                    ),
+                    Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 28),
+                            child: formField(url, 'Meeting url', context),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 28),
+                            child: formField(topics, 'Lecture topic', context),
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.8,
+                            child: FlatButton(
+                              onPressed: () => _selectDate(context),
+                              child: Text(
+                                'Selected date ' +
+                                    "${selectedDate.toLocal()}".split(' ')[0],
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.8,
+                            child: FlatButton(
+                              onPressed: () => selectTime(context),
+                              child: Text(_time == null
+                                  ? 'Selected time'
+                                  : 'Selected time' +
+                                      _time.format(context).toString()),
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.only(bottom: 10),
+                            width: MediaQuery.of(context).size.width * 0.8,
+                            child: Material(
+                              borderRadius: BorderRadius.circular(20.0),
+                              shadowColor: Theme.of(context).accentColor,
+                              color: Theme.of(context).accentColor,
+                              child: Builder(builder: (context) {
+                                return FlatButton(
+                                  onPressed: () async {
+                                    setState(() {
+                                      _loading = true;
+                                    });
+                                    if (_formKey.currentState.validate()) {
+                                      subCollName = topics.text;
+                                      ErrorMsg error = new ErrorMsg(' ');
+                                      var db = ScheduleClass(
+                                          code: widget.classData['code'],
+                                          date: selectedDate.toLocal(),
+                                          error: error,
+                                          time: _time,
+                                          topics: topics.text,
+                                          url: url.text);
+                                      await db.scheduleClass();
+                                      setState(() {
+                                        url.text = '';
+                                        topics.text = '';
+                                        _loading = false;
+                                        msg = error.error;
+                                      });
+                                    }
+                                  },
+                                  child: Text(
+                                    'Schedule class',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                );
+                              }),
+                            ),
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(
+                                  color: Theme.of(context).accentColor,
+                                )),
+                            // padding: EdgeInsets.all(10),
+                            width: MediaQuery.of(context).size.width * 0.8,
+                            child: Material(
+                              borderRadius: BorderRadius.circular(
+                                20.0,
+                              ),
+                              shadowColor: Theme.of(context).accentColor,
+                              child: Builder(builder: (context) {
+                                return FlatButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ScheduledClasses(widget.classData,
+                                                  subCollName)),
+                                    );
+                                  },
+                                  child: Text(
+                                    'View scheduled classes',
+                                    style: TextStyle(
+                                      color: Theme.of(context).accentColor,
+                                    ),
+                                  ),
+                                );
+                              }),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           );
