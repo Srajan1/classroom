@@ -44,8 +44,8 @@ Map<int, Color> color = {
   900: Color.fromRGBO(136, 14, 79, 1),
 };
 
-MaterialColor colorCustomAccent = MaterialColor(0xFF4C2A85, color);
-MaterialColor colorCustomSwatch = MaterialColor(0xFF461353, color);
+MaterialColor colorCustomAccent = MaterialColor(0xFF2a9d8f, color);
+MaterialColor colorCustomSwatch = MaterialColor(0xFFe76f51, color);
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.

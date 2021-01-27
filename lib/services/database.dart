@@ -1,7 +1,9 @@
 import 'package:classroom/models/error.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class MyClassDatabase {
   final CollectionReference teacher;
@@ -113,6 +115,40 @@ class MakeAnnouncement {
       'time': DateTime.now().toString().substring(0, 10) +
           ' ' +
           TimeOfDay.now().toString().substring(10, 15)
+    });
+  }
+}
+
+class PostNotes {
+  String code, topic, url;
+  PostNotes(this.code, this.topic, this.url);
+  Future postNote() async {
+    var collName = FirebaseFirestore.instance.collection(code);
+    await collName.doc('Notes').collection('Notes').doc().set({
+      'topic': topic,
+      'url': url,
+      'time': DateTime.now().toString().substring(0, 10) +
+          ' ' +
+          TimeOfDay.now().toString().substring(10, 15)
+    });
+  }
+}
+
+class PostAssignment {
+  String code, topic, url, doc;
+  DateTime dueDate;
+
+  PostAssignment(this.code, this.topic, this.url, this.dueDate, this.doc);
+  Future postNote() async {
+    var collName = FirebaseFirestore.instance.collection(code);
+    await collName
+        .doc('assignments')
+        .collection('assignments')
+        .doc(topic + TimeOfDay.now().toString())
+        .set({
+      'topic + teacher copy': topic,
+      'url + teacher copy': url,
+      'dueDate + teacher copy': dueDate.toString()
     });
   }
 }

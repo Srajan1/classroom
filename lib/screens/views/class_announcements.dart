@@ -81,9 +81,8 @@ class _AnnouncementsState extends State<Announcements> {
                         width: MediaQuery.of(context).size.width * .4,
                         child: Text(
                           'Cancel',
-                          style: TextStyle(
-                            color: Theme.of(context).accentColor,
-                          ),
+                          style:
+                              TextStyle(color: Theme.of(context).primaryColor),
                         )),
                     onPressed: () {
                       announcement.text = '';
