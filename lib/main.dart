@@ -7,6 +7,7 @@ import 'package:classroom/screens/views/enrolled_classes.dart';
 import 'package:classroom/screens/views/home.dart';
 import 'package:classroom/screens/views/join_class.dart';
 import 'package:classroom/screens/views/subject_class.dart';
+import 'package:classroom/screens/views/subject_class_student.dart';
 import 'package:classroom/services/auth.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
@@ -84,6 +85,7 @@ class MyApp extends StatelessWidget {
             JoinClass.routeName: (_) => JoinClass(),
             SubjectClass.routeName: (_) => SubjectClass(),
             EnrolledClasses.routeName: (_) => EnrolledClasses(),
+            SubjectClassStudent.routeName: (_) => SubjectClassStudent(),
           },
         ),
       ),

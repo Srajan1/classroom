@@ -1,5 +1,6 @@
 import 'package:classroom/constants/constants.dart';
 import 'package:classroom/screens/views/subject_class.dart';
+import 'package:classroom/screens/views/subject_class_student.dart';
 import 'package:classroom/services/loading.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -79,9 +80,9 @@ class EnrolledClasses extends StatelessWidget {
                         child: Builder(builder: (context) {
                           return FlatButton(
                             onPressed: () {
-                              // Navigator.of(context).pushNamed(
-                              //     SubjectClass.routeName,
-                              //     arguments: document.data());
+                              Navigator.of(context).pushNamed(
+                                  SubjectClassStudent.routeName,
+                                  arguments: document.data());
                             },
                             child: Center(
                               child: Text(
