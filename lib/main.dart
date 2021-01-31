@@ -3,6 +3,7 @@ import 'package:classroom/screens/authenticate/sign_in.dart';
 import 'package:classroom/screens/authenticate/sign_up.dart';
 import 'package:classroom/screens/views/class_announcements.dart';
 import 'package:classroom/screens/views/create_class.dart';
+import 'package:classroom/screens/views/enrolled_classes.dart';
 import 'package:classroom/screens/views/home.dart';
 import 'package:classroom/screens/views/join_class.dart';
 import 'package:classroom/screens/views/subject_class.dart';
@@ -82,6 +83,7 @@ class MyApp extends StatelessWidget {
             CreatedClasses.routeName: (_) => CreatedClasses(),
             JoinClass.routeName: (_) => JoinClass(),
             SubjectClass.routeName: (_) => SubjectClass(),
+            EnrolledClasses.routeName: (_) => EnrolledClasses(),
           },
         ),
       ),

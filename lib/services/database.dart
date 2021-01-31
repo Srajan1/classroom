@@ -29,6 +29,7 @@ class MyClassDatabase {
       classCollection.doc('Announcements').set({});
       classCollection.doc('assignments').set({});
       classCollection.doc('Upcoming classes').set({});
+      classCollection.doc('Name').set({'name': subjectName});
       print("User Added");
       err.error = 'Class created';
     }).catchError((error) {
@@ -59,14 +60,15 @@ class JoinClassDataBase {
         else {
           print(classRoom.data());
           List<dynamic> studentList = classRoom.data()['studentList'];
+          String subjectName = classRoom.data()['subName'];
           studentList.add(
               {'studentName': studentName, 'rollNum': rollNum, 'email': email});
           teacher.doc(code).update({"studentList": studentList});
           print(studentList);
           error.error = 'You\'ve successfully joined the class. 🌟🌟';
-          return studentCollection.doc(code).set({
-            'code': code,
-          });
+          return studentCollection
+              .doc(code)
+              .set({'code': code, 'Name': subjectName});
         }
       } else {
         print('does not exist');

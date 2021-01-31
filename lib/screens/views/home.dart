@@ -2,6 +2,7 @@ import 'package:classroom/constants/constants.dart';
 import 'package:classroom/screens/authenticate/logout.dart';
 import 'package:classroom/screens/views/create_class.dart';
 import 'package:classroom/screens/views/created_classes.dart';
+import 'package:classroom/screens/views/enrolled_classes.dart';
 import 'package:classroom/screens/views/join_class.dart';
 import 'package:classroom/services/drawer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -136,7 +137,10 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.of(context).pushNamed(EnrolledClasses.routeName,
+                        arguments: user.email);
+                  },
                   child: Container(
                     padding: EdgeInsets.all(30),
                     decoration: BoxDecoration(
