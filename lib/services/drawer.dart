@@ -123,19 +123,6 @@ class CustomDrawer extends StatelessWidget {
                   children: [
                     Wrap(
                       direction: Axis.horizontal,
-                      children: [Icon(Icons.assignment), Text('Assignments')],
-                    ),
-                  ],
-                ),
-              ),
-              RaisedButton(
-                splashColor: Theme.of(context).primaryColor,
-                onPressed: () {},
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Wrap(
-                      direction: Axis.horizontal,
                       children: [Icon(Icons.work), Text('All classes')],
                     ),
                   ],

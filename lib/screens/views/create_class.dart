@@ -42,7 +42,7 @@ class _CreateClassState extends State<CreateClass> {
     return _loading
         ? Loader()
         : Scaffold(
-            drawer: CustomDrawer(),
+            // drawer: CustomDrawer(),
             appBar: AppBar(
               iconTheme: IconThemeData(color: Theme.of(context).accentColor),
               backgroundColor: Colors.white,
