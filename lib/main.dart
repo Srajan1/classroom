@@ -1,7 +1,6 @@
 import 'package:classroom/screens/authenticate/logout.dart';
 import 'package:classroom/screens/authenticate/sign_in.dart';
 import 'package:classroom/screens/authenticate/sign_up.dart';
-import 'package:classroom/screens/views/class_announcements.dart';
 import 'package:classroom/screens/views/create_class.dart';
 import 'package:classroom/screens/views/enrolled_classes.dart';
 import 'package:classroom/screens/views/home.dart';

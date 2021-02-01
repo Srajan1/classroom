@@ -18,14 +18,6 @@ class _UpcomingClassesStudentState extends State<UpcomingClassesStudent> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          widget.classData['subName'].toString(),
-          style: TextStyle(color: Theme.of(context).accentColor),
-        ),
-        iconTheme: IconThemeData(color: Theme.of(context).accentColor),
-        backgroundColor: Colors.white,
-      ),
       body: StreamBuilder(
           stream: FirebaseFirestore.instance
               .collection(widget.classData['code'])

@@ -158,21 +158,49 @@ class ListOfAnnouncements extends StatelessWidget {
                           announcementSnapshot.data.documents[index];
                       print(announcementData.data());
 
-                      return Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                announcementData.data()['postedBy'],
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        child: Column(
+                          children: [
+                            SizedBox(height: 20),
+                            Container(
+                              decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey,
+                                      blurRadius: 5.0,
+                                      spreadRadius: 0.0,
+                                      offset: Offset(2.0,
+                                          2.0), // shadow direction: bottom right
+                                    )
+                                  ],
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(40)),
+                                  color: Colors.white),
+                              child: Padding(
+                                padding: const EdgeInsets.all(30.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      announcementData.data()['postedBy'],
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Text(announcementData.data()['time']),
+                                    Divider(),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        announcementData.data()['post'],
+                                        textAlign: TextAlign.left,
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
-                              Text(announcementData.data()['time']),
-                              Divider(),
-                              Text(announcementData.data()['post'])
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       );
                     },
