@@ -184,52 +184,45 @@ class _SubmitClassworkState extends State<SubmitClasswork>
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: FlatButton(
-                    child: Container(
-                        padding: EdgeInsets.symmetric(vertical: 10),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(
-                              color: Theme.of(context).primaryColor,
-                            )),
-                        alignment: Alignment.center,
-                        width: MediaQuery.of(context).size.width * .4,
-                        child: Text(
-                          'View uploaded notes',
-                          style:
-                              TextStyle(color: Theme.of(context).primaryColor),
-                        )),
-                    onPressed: () {
-                      setState(() {
-                        _index = 0;
-                      });
-                    },
-                  ),
+                FlatButton(
+                  child: Container(
+                      padding: EdgeInsets.symmetric(vertical: 10),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(
+                            color: Theme.of(context).primaryColor,
+                          )),
+                      alignment: Alignment.center,
+                      width: MediaQuery.of(context).size.width * .4,
+                      child: Text(
+                        'View uploaded notes',
+                        style: TextStyle(color: Theme.of(context).primaryColor),
+                      )),
+                  onPressed: () {
+                    setState(() {
+                      _index = 0;
+                    });
+                  },
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: FlatButton(
-                    child: Container(
-                        padding: EdgeInsets.symmetric(vertical: 10),
-                        decoration: BoxDecoration(
-                            color: Theme.of(context).accentColor,
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(color: Colors.white)),
-                        alignment: Alignment.center,
-                        width: MediaQuery.of(context).size.width * .4,
-                        child: Text(
-                          'View assignments',
-                          style: TextStyle(color: Colors.white),
-                        )),
-                    onPressed: () {
-                      setState(() {
-                        _index = 1;
-                      });
-                    },
-                  ),
-                )
+                FlatButton(
+                  child: Container(
+                      padding: EdgeInsets.symmetric(vertical: 10),
+                      decoration: BoxDecoration(
+                          color: Theme.of(context).accentColor,
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(color: Colors.white)),
+                      alignment: Alignment.center,
+                      width: MediaQuery.of(context).size.width * .4,
+                      child: Text(
+                        'View assignments',
+                        style: TextStyle(color: Colors.white),
+                      )),
+                  onPressed: () {
+                    setState(() {
+                      _index = 1;
+                    });
+                  },
+                ),
               ],
             ),
             page[_index]

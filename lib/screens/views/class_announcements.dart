@@ -67,60 +67,53 @@ class _AnnouncementsState extends State<Announcements> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: FlatButton(
-                    child: Container(
-                        padding: EdgeInsets.symmetric(vertical: 10),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(
-                              color: Theme.of(context).primaryColor,
-                            )),
-                        alignment: Alignment.center,
-                        width: MediaQuery.of(context).size.width * .4,
-                        child: Text(
-                          'Cancel',
-                          style:
-                              TextStyle(color: Theme.of(context).primaryColor),
-                        )),
-                    onPressed: () {
-                      announcement.text = '';
-                      FocusScope.of(context).unfocus();
-                    },
-                  ),
+                FlatButton(
+                  child: Container(
+                      padding: EdgeInsets.symmetric(vertical: 10),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(
+                            color: Theme.of(context).primaryColor,
+                          )),
+                      alignment: Alignment.center,
+                      width: MediaQuery.of(context).size.width * .4,
+                      child: Text(
+                        'Cancel',
+                        style: TextStyle(color: Theme.of(context).primaryColor),
+                      )),
+                  onPressed: () {
+                    announcement.text = '';
+                    FocusScope.of(context).unfocus();
+                  },
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: FlatButton(
-                    child: Container(
-                        padding: EdgeInsets.symmetric(vertical: 10),
-                        decoration: BoxDecoration(
-                            color: Theme.of(context).accentColor,
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(color: Colors.white)),
-                        alignment: Alignment.center,
-                        width: MediaQuery.of(context).size.width * .4,
-                        child: Text(
-                          'Post',
-                          style: TextStyle(color: Colors.white),
-                        )),
-                    onPressed: () async {
-                      if (_formKey.currentState.validate()) {
-                        setState(() {
-                          _loading = true;
-                        });
-                        var db = MakeAnnouncement(widget.classData['code'],
-                            user.displayName, announcement.text);
-                        await db.makeAnnouncement();
-                        setState(() {
-                          FocusScope.of(context).unfocus();
-                          announcement.text = '';
-                          _loading = false;
-                        });
-                      }
-                    },
-                  ),
+                FlatButton(
+                  child: Container(
+                      padding: EdgeInsets.symmetric(vertical: 10),
+                      decoration: BoxDecoration(
+                          color: Theme.of(context).accentColor,
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(color: Colors.white)),
+                      alignment: Alignment.center,
+                      width: MediaQuery.of(context).size.width * .4,
+                      child: Text(
+                        'Post',
+                        style: TextStyle(color: Colors.white),
+                      )),
+                  onPressed: () async {
+                    if (_formKey.currentState.validate()) {
+                      setState(() {
+                        _loading = true;
+                      });
+                      var db = MakeAnnouncement(widget.classData['code'],
+                          user.displayName, announcement.text);
+                      await db.makeAnnouncement();
+                      setState(() {
+                        FocusScope.of(context).unfocus();
+                        announcement.text = '';
+                        _loading = false;
+                      });
+                    }
+                  },
                 )
               ],
             ),
