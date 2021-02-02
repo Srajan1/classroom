@@ -18,6 +18,7 @@ Passwords can be resent using the forgot password button, the password will be r
 
 ## ✅ Home page
 The home page UI allows the teacher to both manage the classes user is teaching in or studying in, along with displaying user's information.
+
 ![register page](./assets/images/student_corner/home.png)
 
 # 👩‍🎓👨‍🎓 Student's section
@@ -40,8 +41,7 @@ The app will greet you with following msg on successfull class joining.
 ![register page](./assets/images/student_corner/class_joined.png) 
 Student's will have this list of classes from where they can view and manage all the classes they are a part of
 
-![register page](./assets/images/student_corner/classAnnouncement.png) 
-![register page](./assets/images/student_corner/classAnnouncement.png) 
+![register page](./assets/images/student_corner/classAnnouncement.png)
 ![register page](./assets/images/student_corner/notes_view.png) 
 ![register page](./assets/images/student_corner/notes-assignment_errorMsg.png) 
 ![register page](./assets/images/student_corner/upcoming_class.jpeg) 
