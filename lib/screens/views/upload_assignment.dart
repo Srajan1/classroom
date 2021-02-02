@@ -68,65 +68,59 @@ class _UploadAssignmentState extends State<UploadAssignment> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: FlatButton(
-                            child: Container(
-                                padding: EdgeInsets.symmetric(vertical: 10),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    border: Border.all(
-                                      color: Theme.of(context).primaryColor,
-                                    )),
-                                alignment: Alignment.center,
-                                width: MediaQuery.of(context).size.width * .4,
-                                child: Text(
-                                  'Cancel',
-                                  style: TextStyle(
-                                      color: Theme.of(context).primaryColor),
-                                )),
-                            onPressed: () {
-                              topic.text = '';
-                              url.text = '';
-                              FocusScope.of(context).unfocus();
-                            },
-                          ),
+                        FlatButton(
+                          child: Container(
+                              padding: EdgeInsets.symmetric(vertical: 10),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  border: Border.all(
+                                    color: Theme.of(context).primaryColor,
+                                  )),
+                              alignment: Alignment.center,
+                              width: MediaQuery.of(context).size.width * .4,
+                              child: Text(
+                                'Cancel',
+                                style: TextStyle(
+                                    color: Theme.of(context).primaryColor),
+                              )),
+                          onPressed: () {
+                            topic.text = '';
+                            url.text = '';
+                            FocusScope.of(context).unfocus();
+                          },
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: FlatButton(
-                            child: Container(
-                                padding: EdgeInsets.symmetric(vertical: 10),
-                                decoration: BoxDecoration(
-                                    color: Theme.of(context).accentColor,
-                                    borderRadius: BorderRadius.circular(20),
-                                    border: Border.all(color: Colors.white)),
-                                alignment: Alignment.center,
-                                width: MediaQuery.of(context).size.width * .4,
-                                child: Text(
-                                  'Post',
-                                  style: TextStyle(color: Colors.white),
-                                )),
-                            onPressed: () async {
-                              if (_formKey.currentState.validate()) {
-                                setState(() {
-                                  loading = true;
-                                });
-                                var db = PostAssignment(
-                                    widget.code,
-                                    topic.text,
-                                    url.text,
-                                    selectedDate.toLocal(),
-                                    "Teacher's copy");
-                                await db.postNote();
-                                print(widget.email);
-                                setState(() {
-                                  msg = 'Notes are uploaded';
-                                  loading = false;
-                                });
-                              }
-                            },
-                          ),
+                        FlatButton(
+                          child: Container(
+                              padding: EdgeInsets.symmetric(vertical: 10),
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context).accentColor,
+                                  borderRadius: BorderRadius.circular(20),
+                                  border: Border.all(color: Colors.white)),
+                              alignment: Alignment.center,
+                              width: MediaQuery.of(context).size.width * .4,
+                              child: Text(
+                                'Post',
+                                style: TextStyle(color: Colors.white),
+                              )),
+                          onPressed: () async {
+                            if (_formKey.currentState.validate()) {
+                              setState(() {
+                                loading = true;
+                              });
+                              var db = PostAssignment(
+                                  widget.code,
+                                  topic.text,
+                                  url.text,
+                                  selectedDate.toLocal(),
+                                  "Teacher's copy");
+                              await db.postNote();
+                              print(widget.email);
+                              setState(() {
+                                msg = 'Assignment is uploaded';
+                                loading = false;
+                              });
+                            }
+                          },
                         ),
                       ],
                     ),
