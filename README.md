@@ -3,8 +3,7 @@
 ## An app that let's you manage your classes, whether you are a teacher or student
 
 ## ✅ Robust User Authentication
-### The user is greeted with the following screen on the app's first launch, in later user the user's authentication state is preserved.
-The user can choose to login with email and password or with Google sign in.
+### The user is greeted with the following screen on the app's first launch, in later user the user's authentication state is preserved.The user can choose to login with email and password or with Google sign in.
 ![login page](./assets/images/authentication/loginPageUI.png)
 
 A non registered will have to register at the following screen. In case of registration with email, the email will have to be verified through a link
