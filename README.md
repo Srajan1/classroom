@@ -35,9 +35,11 @@ The user may enter wrong code while joining a class or try to join again, these 
 The app will also mock you with two laughing emoticons if you try to enroll in a class that was created by you. Which I think is a stupid mistake. 😂😂
 
 The app will greet you with following msg on successfull class joining.
+
 ![register page](./assets/images/student_corner/class_joined.png)
 ## ✅ Managing classes
 ![register page](./assets/images/student_corner/class_joined.png) 
+
 Student's will have this list of classes from where they can view and manage all the classes they are a part of
 
 ![register page](./assets/images/student_corner/classAnnouncement.png)
