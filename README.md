@@ -4,7 +4,7 @@
 
 ## ✅ Robust User Authentication
 ### The user is greeted with the following screen on the app's first launch, in later user the user's authentication state is preserved.
-    The user can choose to login with email and password or with Google sign in.
+The user can choose to login with email and password or with Google sign in.
 ![login page](./assets/images/authentication/loginPageUI.png)
 
     A non registered will have to register at the following screen. In case of registration with email, the email will have to be verified through a link
@@ -12,7 +12,7 @@
 
 ![register page](./assets/images/authentication/email_verification_msg.jpg)![register page](./assets/images/authentication/email_verification_link.png)
     
-    passwords can be resent using the forgot password button, the password will be reset through the verified email
+Passwords can be resent using the forgot password button, the password will be reset through the verified email
 
 ![register page](./assets/images/authentication/password_reset.png)
 
@@ -42,11 +42,11 @@ The student can join by entering the code provided by teacher, app will generate
 # 👩‍🏫👨‍🏫 Teacher's section
 
 ## ✅ Managing classes
-    Teacher will have all the class management privileges the student had, along with that teacher can also view all the students in the class and mail them individually from within the app
+Teacher will have all the class management privileges the student had, along with that teacher can also view all the students in the class and mail them individually from within the app
 ![register page](./assets/images/teacher_corner/list_of_people.png)
 
 ## ✅ Creating classes
-    Teacher can create a class by providing following details, and once the class is created the teacher will be provided with the unique class code.
+Teacher can create a class by providing following details, and once the class is created the teacher will be provided with the unique class code.
 ![register page](./assets/images/teacher_corner/create_class.png) ![register page](./assets/images/teacher_corner/code_copied.png) 
 
 ## Teacher will also be provided with a class list of all the classes
